@@ -25,4 +25,8 @@ public class ArtistService {
         return updatedArtist;
     }
 
+    public Artist createArtist(Artist newArtist) {
+        log.info("createArtist called");
+        return artistRepository.save(newArtist);
+    }
 }

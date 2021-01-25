@@ -36,4 +36,16 @@ class ArtistServiceTest {
 
         Assertions.assertThat(actualMockArtist.getCountry()).isEqualTo(updatedMockArtist.getCountry());
     }
+
+    @Test
+    @DisplayName("M")
+    void createArtistTest() {
+        Artist mockArtist = Artist.builder().id(123L).artistName("The Wacks").country("Estonia").build();
+
+        Mockito.when(artistRepository.save(mockArtist)).thenReturn(mockArtist);
+
+        Artist actualMockArtist = artistService.createArtist(mockArtist);
+
+        Assertions.assertThat(actualMockArtist).isEqualTo(mockArtist);
+    }
 }
