@@ -3,6 +3,7 @@ package com.example.discogsrip.controllers;
 import com.example.discogsrip.DiscogsRipApplication;
 import com.example.discogsrip.entities.Artist;
 import com.example.discogsrip.services.ArtistService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,9 @@ class ArtistControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     public void testSaveArtist() throws Exception{
 
@@ -42,10 +46,12 @@ class ArtistControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/artist", mockArtist)
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding("UTF-8")
-        .content("insert JSON string here"))
+        .content(objectMapper.writeValueAsString(mockArtist)))
                 .andExpect(MockMvcResultMatchers.status().is(201))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.jsonPath("id", Matchers.is(123)));
+                .andExpect(MockMvcResultMatchers.jsonPath("id", Matchers.is(123)))
+                .andExpect(MockMvcResultMatchers.jsonPath("artistName", Matchers.is("The Wacks")))
+                .andExpect(MockMvcResultMatchers.jsonPath("country", Matchers.is("Estonia")));
     }
 
 }
