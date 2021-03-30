@@ -29,4 +29,15 @@ public class ArtistService {
         log.info("createArtist called");
         return artistRepository.save(newArtist);
     }
+
+    public Boolean deleteArtist(Long id) {
+        log.info("deleteArtist called");
+        try {
+            artistRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            log.info("Error deleting: " + e.toString());
+            return false;
+        }
+    }
 }
