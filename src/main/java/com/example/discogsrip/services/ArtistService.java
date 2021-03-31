@@ -40,4 +40,15 @@ public class ArtistService {
             return false;
         }
     }
+
+    public Artist getArtist(Long id) {
+        log.info("getArtist called");
+        try {
+            return artistRepository.findById(id).get();
+        } catch (Exception e) {
+            log.info("Error getting: " + e.toString());
+            return null;
+        }
+    }
+
 }

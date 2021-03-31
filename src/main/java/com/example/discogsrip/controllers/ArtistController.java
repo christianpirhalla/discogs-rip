@@ -29,4 +29,10 @@ public class ArtistController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Artist> getArtist(@PathVariable("id") Long id){
+
+        return new ResponseEntity<>(artistService.getArtist(id), HttpStatus.OK);
+    }
+
 }
